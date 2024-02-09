@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Programming demonstration</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+ <div id="mainbody">
+    <div id="tooltip" style="position: absolute"></div>
+ </div>
+ <script>
+
+    const data = [1,2,3,4,5];
+    let CircleContainer = d3.select("#mainbody").append("svg")
+        .attr("id", "circlesvg")
+        .attr("width", "500px")
+        .attr("height", "500px");
+    
+    let Circle = CircleContainer.selectAll(".nodes")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("class", "nodes")
+        .attr("stroke", "2px solid black")
+        .attr("fill", "grey")
+        .attr("cx", (d,i) => 50 + i*100)
+        .attr("cy", 250)
+        .attr("r", 25);
+
+    const textstr = "I am a tooltip!!";
+    const imgsrc = "https://parade.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTk2NDE2NzgxMDc2OTMxNzM0/nicolas-cage-marvel-role-90s-emo-superman-tim-burton-movie-ftr.webp";
+
+    let tooltip_container = d3.select("#tooltip") //We grab the element with id tooltip (a div) and set it's css style.
+        .style("width", "200px")
+        .style("height", "200px")
+        .style("position", "absolute")          //This means we don't care if it overlaps with other elements i.e. tells html to not place it for us
+        .style("border", "1px solid black")
+        .style("visibility", "hidden")          //The element will be present in the dom but not rendered. 
+        
+
+    tooltip_container.append("div")             //div for our text
+        .attr("id", "tooltip-text");
+
+    tooltip_container.append("img")             //Image element
+        .attr("id", "imgelement")
+        .style("width", "100px")
+        .style("height", "100px")
+        .style("border", "1px solid black")
+        .style("margin", "5px")
+        .attr("src", imgsrc);
+
+
+    Circle.on("mousemove", (event,datapoint) => {
+        let [x,y] = d3.pointer(event);
+        d3.select("#tooltip")
+            .style("visibility", "visible")
+            .style("left", `${x+50}px`)
+            .style("top", `${y+50}px`)            
+        d3.select("#tooltip-text")
+            .html(`This is element ${datapoint}! <br> This is also rendered html, <i>see?</i>`); //Accepts arbitraty html. 
+
+        
+    });
+
+    Circle.on("mouseout", () => {
+        d3.select("#tooltip")
+            .style("visibility", "hidden")        
+    })
+
+
+ </script>
+</body>
+</html>

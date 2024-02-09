@@ -26,23 +26,58 @@
         }
 
         #graphviz {
-            width: 100%;
-            height: 80vh; /* 80% of the viewport height */
+            width: 800;
+            height: 450; /* 80% of the viewport height */
             border-top: 1px solid #eee; /* A light border at the top */
         }
+
+        
 
     </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <div class="title-container"><h2>IMDB Movies Graph</h2></div> 
-    <div id="graphviz"></div>
+    <div class="title-container"><h2>IMDB Movies Graph</h2></div>
+    <div id="navbar">
+
+        <label for="nodeLabels">Node Label</label>
+        <select name="nodeLabels" id="nodeLabels">
+            <option id="movieId">Movie ID</option>
+            <option id="movieName">Movie Name</option>
+            <option id="genre">Genre</option>
+            <option id="directorName">Director Name</option>
+        </select>
+
+        <label for="switch">Toggle LCC</label>
+        <input type="checkbox" id="switch">
+        
+        <button id="graph1">Graph 1</button>
+        <button id="graph2">Graph 2</button>
+        <input id="searchInput" type="text" placeholder="Search..">
+
+        
+
+    </div>
+    <div id="graphviz">
+        <div id="tooltip"></div>
+    </div>
+    
+    <button id="addNode">Add Node</button>
+    <button id="addEdge">Add Edge</button>
+    <button id="editNode">Edit Node</button>
+    <button id="deleteNode">Delete Node</button>
+    <button id="deleteEdge">Delete Edge</button>
     <button id="computeStats">Compute statistics</button>
+    <div id="movieStats">
+        
+    </div>
     <div id="stats">
         <p>Average Node Degree: <span id="avgDegree"></span></p>
         <p>Number of Connected Components: <span id="numComponents"></span></p>
         <p>Graph Density: <span id="graphDensity"></span></p>
+        <p>Diameter of Largest Connected Component: <span id="diameter"></span></p>
+        <p>Average Shortest Path Length: <span id="apl"></span></p>
     </div>
-    <script type="module" src="index.js"></script>
+    <script type="module" src=" index.js"></script>
 </body>
 </html>
